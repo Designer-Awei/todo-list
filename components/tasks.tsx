@@ -32,6 +32,7 @@ import { cn } from "@/lib/utils"
 import type { Task, Category } from "@/types/task"
 import { useTaskStore } from "@/store/task-store"
 import { useTranslation } from "@/components/language-provider"
+import { zhCN, enUS, ja, ko } from "date-fns/locale"
 
 export default function Tasks() {
   const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } = useTaskStore()
@@ -427,7 +428,21 @@ function TaskCard({
   getPriorityColor: (priority: string) => string
 }) {
   const category = categories.find((c) => c.id === task.category)
-  const { t } = useTranslation()
+  const { t, currentLanguage } = useTranslation()
+
+  // 根据当前语言选择日期格式化的locale
+  const getLocale = () => {
+    switch (currentLanguage) {
+      case "zh-CN":
+        return zhCN
+      case "ja-JP":
+        return ja
+      case "ko-KR":
+        return ko
+      default:
+        return enUS
+    }
+  }
 
   return (
     <Card className={cn(task.completed ? "bg-muted" : "")}>
@@ -490,13 +505,13 @@ function TaskCard({
         {task.dueDate && (
           <div className="flex items-center mb-1">
             <CalendarIcon className="mr-2 h-3 w-3" />
-            {t("dueDate")}: {format(task.dueDate, "PPP")}
+            {t("dueDate")}: {format(task.dueDate, "PPP", { locale: getLocale() })}
           </div>
         )}
         {task.reminderDate && (
           <div className="flex items-center">
             <Bell className="mr-2 h-3 w-3" />
-            {t("reminders")}: {format(task.reminderDate, "PPP HH:mm")}
+            {t("reminders")}: {format(task.reminderDate, "PPP HH:mm", { locale: getLocale() })}
           </div>
         )}
       </CardFooter>

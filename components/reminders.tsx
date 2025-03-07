@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { format, isToday, isTomorrow, isThisWeek, isAfter } from "date-fns"
-import { zhCN } from "date-fns/locale"
+import { zhCN, enUS, ja, ko } from "date-fns/locale"
 import { Bell, Calendar, Clock, Check, MoreVertical, Trash2, PencilLine, AlertTriangle } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -238,8 +238,22 @@ function ReminderCard({
   onEdit: (task: Task) => void
   onDelete: (id: string) => void
 }) {
-  const { t } = useTranslation()
+  const { t, currentLanguage } = useTranslation()
   const isOverdue = task.reminderDate && task.reminderDate < new Date() && !task.completed
+
+  // 根据当前语言选择日期格式化的locale
+  const getLocale = () => {
+    switch (currentLanguage) {
+      case "zh-CN":
+        return zhCN
+      case "ja-JP":
+        return ja
+      case "ko-KR":
+        return ko
+      default:
+        return enUS
+    }
+  }
 
   return (
     <Card className={cn(task.completed ? "bg-muted" : "", isOverdue ? "border-red-300" : "")}>
@@ -294,7 +308,7 @@ function ReminderCard({
       <CardFooter className="p-4 pt-0 text-xs flex items-center">
         <div className="flex items-center text-muted-foreground">
           <Calendar className="h-3 w-3 mr-1" />
-          <span>{task.reminderDate && format(task.reminderDate, "PPP")}</span>
+          <span>{task.reminderDate && format(task.reminderDate, "PPP", { locale: getLocale() })}</span>
         </div>
         <div className="flex items-center ml-3 text-muted-foreground">
           <Clock className="h-3 w-3 mr-1" />
