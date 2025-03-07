@@ -33,13 +33,12 @@ import { useTranslation } from "@/components/language-provider"
 export default function Settings() {
   const router = useRouter()
   const { clearAllTasks, tasks, importTasks } = useTaskStore()
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, accentColor, setAccentColor } = useTheme()
   const { isEnabled: notificationsEnabled, setIsEnabled: setNotificationsEnabled } = useNotificationStore()
   const { toast } = useToast()
   const { t, currentLanguage, changeLanguage } = useTranslation()
 
   const [soundEnabled, setSoundEnabled] = useState(true)
-  const [accentColor, setAccentColor] = useState("blue")
   const [name, setName] = useState("用户")
   const [email, setEmail] = useState("")
   const [feedback, setFeedback] = useState("")
@@ -127,7 +126,10 @@ export default function Settings() {
 
             <div className="space-y-2">
               <Label htmlFor="accent-color">{t("themeColor")}</Label>
-              <Select value={accentColor} onValueChange={setAccentColor}>
+              <Select value={accentColor} onValueChange={(value) => {
+                setAccentColor(value);
+                console.log(`Selected accent color: ${value}`);
+              }}>
                 <SelectTrigger id="accent-color">
                   <SelectValue placeholder={t("themeColor")} />
                 </SelectTrigger>

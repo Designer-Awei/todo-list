@@ -1,12 +1,13 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+// import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/store/theme-store"
 import { LanguageProvider } from "@/components/language-provider"
 import { Toaster } from "@/components/ui/toaster"
-import "@/styles/globals.css"
+import "@/app/globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+// 移除Google字体导入，使用系统字体
+// const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Todo List App",
@@ -20,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className="font-sans">
         <ThemeProvider>
           <LanguageProvider>
             {children}
