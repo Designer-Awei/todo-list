@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from "@/components/ui/dialog"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -152,6 +152,7 @@ export default function Tasks() {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>{editTaskId ? t("editTask") : t("addTask")}</DialogTitle>
+                <DialogDescription>{t("enterTaskDetails")}</DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid gap-2">
@@ -426,6 +427,7 @@ function TaskCard({
   getPriorityColor: (priority: string) => string
 }) {
   const category = categories.find((c) => c.id === task.category)
+  const { t } = useTranslation()
 
   return (
     <Card className={cn(task.completed ? "bg-muted" : "")}>

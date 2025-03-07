@@ -127,6 +127,7 @@ const translations = {
     noRemindersThisWeek: "本周没有提醒",
     categoryCompletionRate: "各类别完成率",
     priorityCompletionRate: "各优先级完成率",
+    enterTaskDetails: "请输入任务详情",
   },
   "en-US": {
     settings: "Settings",
@@ -258,6 +259,7 @@ const translations = {
     noRemindersThisWeek: "No reminders this week",
     categoryCompletionRate: "Completion rate by category",
     priorityCompletionRate: "Completion rate by priority",
+    enterTaskDetails: "Please enter task details",
   },
   "ja-JP": {
     settings: "設定",
@@ -389,6 +391,7 @@ const translations = {
     noRemindersThisWeek: "今週のリマインダーはありません",
     categoryCompletionRate: "カテゴリー別完了率",
     priorityCompletionRate: "優先度別完了率",
+    enterTaskDetails: "タスクの詳細を入力してください",
   },
   "ko-KR": {
     settings: "설정",
@@ -520,6 +523,7 @@ const translations = {
     noRemindersThisWeek: "이번 주 알림이 없습니다",
     categoryCompletionRate: "카테고리별 완료율",
     priorityCompletionRate: "우선순위별 완료율",
+    enterTaskDetails: "작업 세부 정보를 입력하세요",
   },
 }
 
