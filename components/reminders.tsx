@@ -312,7 +312,7 @@ function ReminderCard({
         </div>
         <div className="flex items-center ml-3 text-muted-foreground">
           <Clock className="h-3 w-3 mr-1" />
-          <span>{task.reminderDate && format(task.reminderDate, "HH:mm")}</span>
+          <span>{task.reminderDate && format(task.reminderDate, "HH:mm", { locale: getLocale() })}</span>
         </div>
       </CardFooter>
     </Card>

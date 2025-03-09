@@ -36,7 +36,7 @@ import { zhCN, enUS, ja, ko } from "date-fns/locale"
 
 export default function Tasks() {
   const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } = useTaskStore()
-  const { t } = useTranslation()
+  const { t, currentLanguage } = useTranslation()
 
   const [activeTab, setActiveTab] = useState("all")
   const [newTaskOpen, setNewTaskOpen] = useState(false)
@@ -136,6 +136,19 @@ export default function Tasks() {
     }
   }
 
+  const getLocale = () => {
+    switch (currentLanguage) {
+      case "zh-CN":
+        return zhCN
+      case "ja-JP":
+        return ja
+      case "ko-KR":
+        return ko
+      default:
+        return enUS
+    }
+  }
+
   return (
     <div className="container mx-auto max-w-md p-4">
       <div className="mb-6 flex justify-between items-center">
@@ -225,7 +238,7 @@ export default function Tasks() {
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {newTask.dueDate ? format(newTask.dueDate, "PPP") : <span>{t("dueDate")}</span>}
+                        {newTask.dueDate ? format(newTask.dueDate, "PPP", { locale: getLocale() }) : <span>{t("dueDate")}</span>}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
@@ -234,6 +247,7 @@ export default function Tasks() {
                         selected={newTask.dueDate}
                         onSelect={(date) => setNewTask({ ...newTask, dueDate: date })}
                         initialFocus
+                        locale={getLocale()}
                       />
                     </PopoverContent>
                   </Popover>
@@ -251,7 +265,7 @@ export default function Tasks() {
                       >
                         <Bell className="mr-2 h-4 w-4" />
                         {newTask.reminderDate ? (
-                          format(newTask.reminderDate, "PPP HH:mm")
+                          format(newTask.reminderDate, "PPP HH:mm", { locale: getLocale() })
                         ) : (
                           <span>{t("reminders")}</span>
                         )}
@@ -273,6 +287,7 @@ export default function Tasks() {
                             }
                           }}
                           initialFocus
+                          locale={getLocale()}
                         />
                         {newTask.reminderDate && (
                           <div className="mt-4">
